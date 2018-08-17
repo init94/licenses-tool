@@ -1,8 +1,12 @@
+import json
+from rest_framework.views import APIView
+
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from apps.license.forms import LicenseForm
 from apps.license.models import License
+from apps.license.serializers import LicenseSerializer
 
 def index(request):
 	return render(request, 'license/index.html')
@@ -40,3 +44,14 @@ def license_delete(request, id_license):
 		license.delete()
 		return redirect('license:license_list')
 	return render(request, 'license/license_delete.html', {'license': license})
+
+
+class LicenseAPI(APIView):
+	serializer = LicenseSerializer
+
+	def get(self, request, format=None):
+		list_licenses = License.objects.all()
+		response = self.serializer(list_licenses, many=True)
+
+		return HttpResponse(json.dumps(response.data), content_type='application/json')
+
