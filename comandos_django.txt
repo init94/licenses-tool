@@ -1,0 +1,72 @@
+CREAR PROYECTO
+	django-admin.py -- utilidad de linea de comandos
+
+	Comandos
+	django-admin.py startproject nombre_proyecto
+	django-admin.py startapp nombre_app
+	django-admin.py createsuperuser 
+
+EMPAQUETADOR DJANGO
+	manage.py -- empaquedator de django-admin.py
+
+	Comandos
+		manage.py makemigrations
+		manage.py migrate
+		manage.py runserver
+
+CONFIGURAR POSTGRESQL DJANGO
+
+DATABASES = {
+	'default': {
+		'ENGINE': 'django.db.backends.postgresql_psycopg2',
+		'NAME': 'nombre_db',
+		'USER': 'postgres',
+		'PASSWORD': 'password',
+		'HOST': 'localhost',
+		'PORT': 5432,
+	}
+}
+
+
+ESTRUCUTRA DE PROYECTO
+
+	Carpeta apps para almacenar todas las apps del proyecto
+
+	crear proyecto
+		django-admin.py startproject nombre_proyecto
+
+	crear app
+		django-admin.py startapp nombre_app
+
+* Django agrega automaticamente el campo id autoincrementable sino lo hacemos nosotros
+
+URLS PADRE
+	from django.contrib import admin
+	from django.urls import path, include
+
+	urlpatterns = [
+	    path('admin/', admin.site.urls),
+	    path('license/', include('apps.license.urls')),
+	]
+
+URLS HIJO
+
+	from django.urls import path
+
+	from apps.license.views import index
+
+	urlpatterns = [
+	    path('', index),
+	]
+
+HERENCIA DE PLANTILLAS	
+	Reduce la duplicacion y redundancia de elementos comunes de los templates
+
+	Title
+	Header
+	Navbar
+	Footer
+
+	
+
+
